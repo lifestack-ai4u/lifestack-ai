@@ -13,29 +13,21 @@ export default async function handler(req, res) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-4.1-mini",
+        model: "gpt-4o-mini",
         input: question
       })
     });
 
     const data = await response.json();
 
-    console.log("FULL RESPONSE:", JSON.stringify(data));
+    console.log("FULL RESPONSE:", data);
 
-    // safer extraction
-    let text = "No response from AI";
+    const answer = data.output?.[0]?.content?.[0]?.text || "No response from AI";
 
-    if (data.output && data.output.length > 0) {
-      const content = data.output[0].content;
-      if (content && content.length > 0) {
-        text = content[0].text || text;
-      }
-    }
-
-    return res.status(200).json({ answer: text });
+    return res.status(200).json({ answer });
 
   } catch (error) {
-    console.log("ERROR:", error);
+    console.error("ERROR:", error);
     return res.status(500).json({ error: error.message });
   }
 }
