@@ -17,8 +17,10 @@ async function askAI() {
 
     if (data.answer) {
       output.innerText = data.answer;
+    } else if (data.error) {
+      output.innerText = data.error;
     } else {
-      output.innerText = "Error occurred";
+      output.innerText = "No response";
     }
 
   } catch (error) {
