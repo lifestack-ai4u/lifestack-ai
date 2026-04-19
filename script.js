@@ -17,10 +17,8 @@ async function askAI() {
 
     if (data.answer) {
       output.innerText = data.answer;
-    } else if (data.error) {
-      output.innerText = data.error;
     } else {
-      output.innerText = "No response";
+      output.innerText = "No response from AI";
     }
 
   } catch (error) {
